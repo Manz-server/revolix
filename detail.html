@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Paket</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#050814;color:white;min-height:100vh;overflow-x:hidden;scroll-behavior:smooth;}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);background-size:40px 40px;z-index:-2;}
+body::after{content:"";position:fixed;inset:0;background:radial-gradient(circle at top left, rgba(58,123,255,.3), transparent 40%), radial-gradient(circle at bottom right, rgba(0,198,255,.2), transparent 40%);z-index:-1;}
+.top-nav{display:flex;align-items:center;justify-content:space-between;padding:20px;max-width:500px;margin:auto;}
+.back-btn{padding:10px 18px;border-radius:30px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);cursor:pointer;font-size:14px;}
+.breadcrumb{font-size:14px;color:#9ca3af;}
+.breadcrumb span{color:white;font-weight:600;}
+.card{max-width:500px;margin:20px auto;background:linear-gradient(145deg, rgba(20,30,60,.9), rgba(10,15,35,.9));border-radius:30px;padding:30px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 60px rgba(0,100,255,.15);}
+.header{display:flex;gap:20px;align-items:center;margin-bottom:20px;}
+.icon-box{width:70px;height:70px;border-radius:20px;background:linear-gradient(135deg,#3a7bff,#6366f1);display:flex;align-items:center;justify-content:center;font-size:28px;}
+.title h1{font-size:24px;font-weight:800;}
+.title p{color:#9ca3af;margin-top:4px;}
+.pills{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;}
+.pill{padding:10px 16px;border-radius:15px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:8px;font-size:14px;}
+.price-box{margin-top:30px;padding:25px;border-radius:25px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);text-align:center;}
+.price{font-size:42px;font-weight:800;margin-bottom:20px;}
+.price span{font-size:16px;color:#9ca3af;}
+.deploy{width:100%;height:60px;border:none;border-radius:20px;font-size:16px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#3a7bff,#6366f1);color:white;}
+.features{margin-top:20px;display:flex;justify-content:center;gap:25px;color:#9ca3af;font-size:14px;}
+.features i{margin-right:6px;}
+.management-box{margin-top:30px;padding:25px;border-radius:25px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08);}
+.management-title{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;margin-bottom:20px;padding:12px 16px;border-radius:15px;background:linear-gradient(135deg,#3a7bff,#6366f1);}
+.management-list{display:flex;flex-direction:column;gap:14px;}
+.management-item{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:.3s;cursor:pointer;}
+.management-item:hover{background:rgba(58,123,255,.15);border-color:rgba(58,123,255,.4);}
+.management-left{display:flex;align-items:center;gap:12px;color:#cbd5f5;font-size:15px;}
+.management-left i{color:#3a7bff;font-size:16px;}
+.management-hero{text-align:center;margin-top:35px;}
+.management-hero h2{font-size:26px;font-weight:800;background:linear-gradient(135deg,#3a7bff,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;}
+.management-hero p{font-size:14px;color:#9ca3af;line-height:1.7;max-width:420px;margin:auto;}
+.footer{background: linear-gradient(180deg,#050814,#02040a);padding: 70px 20px 90px;text-align: center;border-top: 1px solid rgba(0,170,255,0.15);}
+.footer-content{max-width: 1100px;margin: auto;}
+.footer-brand{margin-bottom: 25px;}
+.logo-big{width: 70px;height: auto;max-width: 100%;object-fit: contain;margin-bottom: 15px;}
+.brand-text{display: flex;justify-content: center;align-items: center;gap: 8px;font-size: 22px;font-weight: 800;color: #fff;}
+.logo-small{width: 24px;height: auto;object-fit: contain;}
+.brand-text .blue{color: #3aa9ff;}
+.footer-desc{margin-top: 16px;font-size: 14px;color: #9ca3af;}
+.footer-made{margin-top: 6px;font-size: 13px;color: #cbd5f5;}
+.footer-social{margin-top: 22px;display: flex;justify-content: center;gap: 14px;}
+.footer-social a{width: 44px;height: 44px;border-radius: 12px;background: rgba(255,255,255,.06);display: flex;align-items: center;justify-content: center;font-size: 20px;color: #fff;text-decoration: none;transition: 0.3s ease;}
+.footer-social a:hover{background: #3aa9ff;transform: translateY(-4px);}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="back-btn" onclick="window.history.back()">
+    <i class="fa-solid fa-arrow-left"></i> Back
+  </div>
+  <div class="breadcrumb">
+    Plans > <span id="breadcrumbTitle"></span>
+  </div>
+</div>
+
+<div class="card">
+
+  <div class="header">
+    <div class="icon-box">
+      <i class="fa-solid fa-server"></i>
+    </div>
+    <div class="title">
+      <h1 id="title"></h1>
+      <p id="typeText"></p>
+    </div>
+  </div>
+
+  <div id="subtitle" style="color:#cbd5f5;margin-bottom:10px;"></div>
+
+  <div class="pills">
+    <div class="pill"><i class="fa-solid fa-microchip"></i> <span id="cpu"></span></div>
+    <div class="pill"><i class="fa-solid fa-memory"></i> <span id="ram"></span></div>
+    <div class="pill"><i class="fa-solid fa-hard-drive"></i> <span id="disk"></span></div>
+  </div>
+
+  <div class="price-box">
+    <div class="management-hero">
+      <h2>Advanced Management</h2>
+      <p>
+        Kendalikan server Minecraft Anda dengan sistem manajemen canggih.
+        Akses console real-time, kelola file, database, backup, dan optimasi
+        performa hanya dalam satu panel modern.
+      </p>
+    </div>
+
+    <div class="management-box">
+      <div class="management-title">
+        <i class="fa-solid fa-layer-group"></i>
+        Server Management
+      </div>
+
+      <div class="management-list">
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-terminal"></i> Console</div><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-folder-open"></i> File Management</div><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-database"></i> Database</div><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-gear"></i> Manage Startups</div><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-rocket"></i> Auto Optimize</div><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-users"></i> Player Manager</div><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="management-item"><div class="management-left"><i class="fa-solid fa-cloud-arrow-up"></i> Backup System</div><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+    </div>
+
+    <div class="price" id="price"></div>
+    <button class="deploy" id="deployNow">
+      <i class="fa-solid fa-rocket"></i> Deploy Now →
+    </button>
+
+    <div class="features">
+      <div><i class="fa-solid fa-bolt"></i> Instant</div>
+      <div><i class="fa-solid fa-shield"></i> Secure</div>
+      <div><i class="fa-solid fa-globe"></i> Global</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const paket = (params.get("paket") || "lite").toLowerCase();
+const ram = parseInt(params.get("ram")) || 1;
+const core = parseInt(params.get("cpu")) || 1;
+const disk = parseInt(params.get("disk")) || ram * 2;
+const harga = parseInt(params.get("harga")) || 5000;
+
+let cpuName = "AMD EPYC";
+if (paket.includes("medium")) cpuName = "AMD EPYC 7443P";
+else if (paket.includes("extreme")) cpuName = "Ryzen 7 3700X";
+
+document.getElementById("title").innerText = paket.toUpperCase() + " HOSTING";
+document.getElementById("typeText").innerText = "Minecraft " + paket.charAt(0).toUpperCase() + paket.slice(1) + " Hosting";
+document.getElementById("breadcrumbTitle").innerText = paket.toUpperCase() + " HOSTING";
+document.getElementById("cpu").innerText = core + " Core " + cpuName;
+document.getElementById("ram").innerText = ram + " GB RAM";
+document.getElementById("disk").innerText = disk + " GB NVMe SSD";
+document.getElementById("price").innerHTML = "Rp " + harga.toLocaleString("id-ID") + " <span>/mo</span>";
+document.getElementById("subtitle").innerText = ram + " GB RAM • " + core + " Core • " + disk + " GB NVMe SSD • " + cpuName;
+
+document.getElementById("deployNow").addEventListener("click", function () {
+  window.location.href =
+    "checkout.html?paket=" + paket +
+    "&ram=" + ram +
+    "&cpu=" + core +
+    "&disk=" + disk +
+    "&harga=" + harga;
+});
+</script>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img src="logo-kanan.png" alt="REVOLIX Logo" class="logo-big">
+      <div class="brand-text">
+        <img src="logo-kanan.png" alt="Logo Small" class="logo-small">
+        REVOLIX<span class="blue">HOST</span>
+      </div>
+    </div>
+    <p class="footer-desc">Thx sudah mengunjungi web kami.</p>
+    <p class="footer-made">Made by <strong>@manznomarga</strong></p>
+    <div class="footer-social">
+      <a href="https://discord.gg/YJnR5jQazt" target="_blank"><i class="fa-brands fa-discord"></i></a>
+      <a href="https://wa.me/6287745935987" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="https://tiktok.com/@revolix.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

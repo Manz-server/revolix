@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* === STYLE TIDAK DIUBAH === */
+:root{
+  --bg:#050814;
+  --card:#0b132b;
+  --blue:#3aa3ff;
+  --border:rgba(255,255,255,.08);
+  --text:#fff;
+  --muted:#94a3b8;
+}
+*{box-sizing:border-box;font-family:'Inter',sans-serif}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#0b1b3a,#050814);
+  color:var(--text);
+}
+.header{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  background:rgba(5,8,20,.75);
+  backdrop-filter:blur(12px);
+}
+.logo{width:40px;height:40px}
+.logo img{width:100%;height:100%;object-fit:contain}
+.menu{width:26px}
+.menu span{display:block;height:3px;background:#fff;border-radius:2px;margin:5px 0}
+.container{max-width:1100px;margin:auto;padding:30px}
+.card{
+  background:linear-gradient(180deg,#0e1737,#080c1f);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:26px;
+  margin-bottom:26px;
+}
+h2{margin:0 0 18px;font-size:22px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+label{font-size:14px;color:var(--muted);margin-bottom:6px;display:block}
+select,input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#050a1e;
+  color:#fff;
+}
+.payment-detail{
+  margin-top:14px;
+  padding:18px;
+  border-radius:16px;
+  background:#050a1e;
+  display:none;
+}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.box{background:#050a1e;border-radius:20px;padding:20px}
+.row{display:flex;justify-content:space-between;margin-bottom:10px;color:var(--muted)}
+.row b{color:#fff}
+.total{font-size:36px;font-weight:800}
+.btn{
+  width:100%;
+  padding:16px;
+  border-radius:18px;
+  border:none;
+  background:linear-gradient(135deg,#3aa3ff,#2563eb);
+  color:#fff;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+}
+@media(max-width:900px){
+  .grid,.summary{grid-template-columns:1fr}
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+  background: linear-gradient(180deg,#050814,#02040a);
+  padding: 70px 20px 90px;
+  text-align: center;
+  border-top: 1px solid rgba(0,170,255,0.15);
+}
+
+.footer-content{
+  max-width: 1100px;
+  margin: auto;
+}
+
+.footer-brand{
+  margin-bottom: 25px;
+}
+
+.logo-big{
+  width: 70px;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.brand-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.logo-small{
+  width: 24px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-text .blue{
+  color: #3aa9ff;
+}
+
+.footer-desc{
+  margin-top: 16px;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.footer-made{
+  margin-top: 6px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.footer-social{
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.footer-social a{
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.footer-social a:hover{
+  background: #3aa9ff;
+  transform: translateY(-4px);
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger-btn{
+  width:26px;
+  cursor:pointer;
+}
+
+.hamburger-btn span{
+  display:block;
+  height:3px;
+  background:#fff;
+  margin:5px 0;
+  border-radius:2px;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:80%;
+  height:100vh;
+  background:#070814;
+  padding:90px 24px;
+  transition:.3s ease;
+  z-index:9999;
+}
+
+.mobile-menu.active{
+  right:0;
+}
+
+.mobile-menu a{
+  display:block;
+  margin:16px 0;
+  text-decoration:none;
+  color:#eaf4ff;
+  font-weight:500;
+}
+
+/* GROUP */
+.menu-group{
+  margin-top:22px;
+}
+
+.menu-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.arrow{
+  font-size:12px;
+  transition:.3s;
+}
+
+/* SUBMENU */
+.submenu{
+  max-height:0;
+  overflow:hidden;
+  margin-left:12px;
+  transition:.3s ease;
+}
+
+.submenu.active{
+  max-height:200px;
+}
+
+.menu-title.toggle.active .arrow{
+  transform:rotate(180deg);
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger-btn{
+  display:none;
+  width:26px;
+  cursor:pointer;
+}
+
+.hamburger-btn span{
+  display:block;
+  height:3px;
+  background:#eaf4ff;
+  margin:5px 0;
+  border-radius:2px;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:80%;
+  height:100vh;
+  background:#070814;
+  padding:90px 24px;
+  transition:.3s ease;
+  z-index:9999;
+}
+
+.mobile-menu.active{
+  right:0;
+}
+
+.mobile-menu a{
+  display:block;
+  margin:16px 0;
+  text-decoration:none;
+  color:#eaf4ff;
+  font-weight:500;
+}
+
+/* GROUP */
+.menu-group{
+  margin-top:22px;
+}
+
+.menu-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.arrow{
+  font-size:12px;
+  transition:.3s;
+}
+
+/* SUBMENU */
+.submenu{
+  max-height:0;
+  overflow:hidden;
+  margin-left:12px;
+  transition:.3s ease;
+}
+
+.submenu.active{
+  max-height:200px;
+}
+
+.menu-title.toggle.active .arrow{
+  transform:rotate(180deg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:992px){
+  nav{
+    display:none;
+  }
+  .hamburger-btn{
+    display:block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="logo">
+    <img src="logo-kanan.png">
+  </div>
+
+  <!-- HAMBURGER -->
+<nav>
+      <a href="lobby.html">Home</a>
+      <a href="#pricing">Pricing</a>
+      <a href="panel.html">Panel</a>
+      <a href="support.html">Contact</a>
+    </nav>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger-btn" id="hamburgerBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+
+  <a href="lobby.html">Beranda</a>
+
+  <div class="menu-group">
+    <div class="menu-title toggle">
+      Minecraft Hosting
+      <span class="arrow">▼</span>
+    </div>
+    <div class="submenu">
+      <a href="paket-private.html#private">Private Hosting</a>
+      <a href="paket-shared.html#shared">Shared Hosting</a>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <div class="menu-title">Other Products</div>
+    <a href="vps.html">VPS</a>
+    <a href="domain.html">Domain</a>
+    <a href="setup.html">Setup Server</a>
+    <a href="panel.html">Game Panel</a>
+    <a href="support.html">Support</a>
+  </div>
+
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+
+  <a href="lobby.html">Beranda</a>
+
+  <div class="menu-group">
+    <div class="menu-title toggle">
+      Minecraft Hosting
+      <span class="arrow">▼</span>
+    </div>
+    <div class="submenu">
+      <a href="paket-private.html#private">Private Hosting</a>
+      <a href="paket-shared.html#shared">Shared Hosting</a>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <div class="menu-title">Other Products</div>
+    <a href="vps.html">VPS</a>
+    <a href="domain.html">Domain</a>
+    <a href="setup.html">Setup Server</a>
+    <a href="panel.html">Game Panel</a>
+    <a href="support.html">Support</a>
+  </div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>Checkout Configuration</h2>
+<div class="grid">
+<div>
+  <label>Server Name</label>
+  <input id="serverName" placeholder="Nama server kamu">
+</div>
+
+<div>
+  <label>Server Password</label>
+  <input id="serverPass" type="password" placeholder="Password server">
+</div>
+
+<div>
+<label>Game Version</label>
+<select id="game">
+<option>Minecraft</option>
+</select>
+</div>
+
+<div>
+<label>Software</label>
+<select id="software">
+<option>Vanilla Bedrock</option>
+<option>Paper</option>
+<option>BungeeCord</option>
+<option>Fabric</option>
+<option>Spigot</option>
+<option>Velocity</option>
+</select>
+</div>
+
+<div>
+<label>Metode Pembayaran</label>
+<select id="payment" onchange="showPayment()">
+<option value="">Pilih</option>
+<option value="qris">QRIS</option>
+<option value="dana">DANA</option>
+<option value="gopay">GoPay</option>
+</select>
+<div class="payment-detail" id="payDetail"></div>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>Ringkasan Pesanan</h2>
+
+<div class="summary">
+
+<div class="box">
+<div class="row"><span>Base Price</span><b id="base">Rp 0</b></div>
+<div class="row"><span>Discount</span><b id="disc">Rp 0</b></div>
+<input id="promo" placeholder="Promo Code">
+<button class="btn" onclick="applyPromo()" style="margin-top:12px">Terapkan Promo</button>
+</div>
+
+<div class="box" style="text-align:center">
+<div class="total" id="total">Rp 0</div>
+<button class="btn" onclick="checkout()" style="margin-top:18px">
+Checkout Sekarang →
+</button>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+/* === BACA HARGA DARI DETAIL.HTML === */
+const params = new URLSearchParams(window.location.search);
+let basePrice = parseInt(params.get("harga")) || 0;
+let discount = 0;
+
+/* ELEMENT */
+const baseEl = document.getElementById("base");
+const discEl = document.getElementById("disc");
+const totalEl = document.getElementById("total");
+
+/* UPDATE TAMPILAN */
+function updatePrice(){
+  baseEl.innerText = "Rp " + basePrice.toLocaleString("id-ID");
+  discEl.innerText = "- Rp " + discount.toLocaleString("id-ID");
+  totalEl.innerText = "Rp " + Math.max(basePrice - discount, 0).toLocaleString("id-ID");
+}
+updatePrice();
+
+/* PROMO */
+function applyPromo(){
+  discount = promo.value === "DISKON15" ? 15000 : 0;
+  updatePrice();
+}
+
+/* PAYMENT */
+function showPayment(){
+  payDetail.style.display="block";
+  if(payment.value==="qris") payDetail.innerHTML=`<img src="qris.png" width="180">`;
+  if(payment.value==="dana") payDetail.innerHTML=`DANA<br>08xxxxxxxxxx`;
+  if(payment.value==="gopay") payDetail.innerHTML=`GOPAY<br>08xxxxxxxxxx`;
+}
+
+/* CHECKOUT */
+function checkout(){
+
+  const total = Math.max(base - disc, 0);
+
+  const serverName = document.getElementById("serverName").value || "-";
+  const serverPass = document.getElementById("serverPass").value || "-";
+
+  const msg =
+`╭─╼〈 ORDER FORM 〉╼
+├ 🎮 Game           : \`${game.value}\`
+├ 📦 Paket          : \`${paket}\`
+├ 🧠 RAM            : \`${ram}\`
+├ ⚙️ CPU            : \`${cpu}\`
+├ 💾 Disk           : \`${disk}\`
+├ 🌐 Server Name    : \`${serverName}\`
+├ 🔑 Server Password: \`${serverPass}\`
+├ 🖥️ Software       : \`${software.value}\`
+├ 💳 Payment        : \`${payment.value.toUpperCase()}\`
+├ 💰 Total          : \`Rp ${total.toLocaleString("id-ID")}\`
+╰────────────╼`;
+
+  window.open(
+    "https://wa.me/6287745935987?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+
+const q = new URLSearchParams(location.search);
+
+const paket = (q.get("paket") || "LITE").toUpperCase();
+const ramRaw  = q.get("ram");
+const cpuRaw  = q.get("cpu");
+const diskRaw = q.get("disk");
+
+const ram  = ramRaw  ? ramRaw  + " GB"   : "-";
+const cpu  = cpuRaw  ? cpuRaw  + " Core" : "-";
+const disk = diskRaw ? diskRaw + " GB"   : "-";
+
+let base     = Number(q.get("harga")) || 0;
+let disc     = 0;
+</script>
+<footer class="footer">
+  <div class="footer-content">
+
+    <div class="footer-brand">
+      <img src="logo-besar.png" alt="REVOLIX Logo" class="logo-big">
+
+      <div class="brand-text">
+        <img src="logo-kanan.png" alt="Logo Small" class="logo-small">
+        REVOLIX<span class="blue">HOST</span>
+      </div>
+    </div>
+
+    <p class="footer-desc">
+      Thx sudah mengunjungi web kami.
+    </p>
+
+    <p class="footer-made">
+      Made by <strong>@manznomarga</strong>
+    </p>
+
+    <div class="footer-social">
+  <a href="https://discord.gg/YJnR5jQazt" target="_blank">
+    <i class="fa-brands fa-discord"></i>
+  </a>
+
+  <a href="https://wa.me/6287745935987" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <a href="https://tiktok.com/@revolix.com" target="_blank">
+    <i class="fa-brands fa-tiktok"></i>
+  </a>
+</div>
+
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const hamburger = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const toggle = document.querySelector(".menu-title.toggle");
+
+  hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+  });
+
+  toggle.addEventListener("click", () => {
+    toggle.classList.toggle("active");
+    toggle.nextElementSibling.classList.toggle("active");
+  });
+
+  document.querySelectorAll(".mobile-menu a").forEach(link=>{
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+    });
+  });
+
+});
+</script>
+</body>
+</html>

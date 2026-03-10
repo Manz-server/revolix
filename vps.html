@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VPS by DigitalOcean</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ICON -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+  --bg:#05070d;
+  --grid:rgba(255,255,255,.04);
+  --card:#0c1020;
+  --accent:#00e5ff;
+  --text:#ffffff;
+  --muted:#9ca3af;
+}
+
+*{box-sizing:border-box;font-family:'Inter',sans-serif}
+
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    var(--bg);
+  background-size:40px 40px;
+}
+
+section{
+  max-width:1200px;
+  margin:auto;
+  padding:90px 20px;
+}
+
+/* HERO */
+.hero{text-align:center}
+.hero h1{
+  font-size:clamp(34px,5vw,50px);
+  font-weight:800;
+  margin-bottom:10px;
+}
+.hero span{color:var(--accent)}
+.hero img{
+  width:150px;
+  margin:16px auto 20px;
+}
+.hero p{
+  max-width:720px;
+  margin:auto;
+  color:var(--muted);
+  font-size:16px;
+}
+
+/* GRID */
+.tier-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+  margin-top:70px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border-radius:20px;
+  padding:34px;
+  border:1px solid rgba(255,255,255,.08);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
+}
+
+.card h3{
+  font-size:22px;
+  margin-bottom:14px;
+}
+.badge{
+  display:inline-block;
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:20px;
+  background:rgba(0,229,255,.15);
+  color:var(--accent);
+  margin-bottom:16px;
+}
+
+/* PRODUCTS */
+.products{
+  list-style:none;
+  padding:0;
+  margin:0 0 20px;
+}
+.products li{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px dashed rgba(255,255,255,.08);
+  font-size:15px;
+}
+.products li:last-child{border-bottom:none}
+.products i{color:var(--accent)}
+
+/* INFO */
+.info{
+  margin-top:16px;
+  font-size:14px;
+  color:#e5e7eb;
+}
+.os{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* BUTTON */
+.btn{
+  margin-top:22px;
+  display:block;
+  text-align:center;
+  padding:14px;
+  border-radius:14px;
+  background:var(--accent);
+  color:#000;
+  font-weight:700;
+  text-decoration:none;
+  transition:.25s;
+}
+.btn:hover{filter:brightness(1.1)}
+
+/* BONUS */
+.bonus{
+  margin-top:80px;
+  background:var(--card);
+  border-radius:22px;
+  padding:40px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.bonus h2{
+  font-size:26px;
+  margin-bottom:20px;
+}
+.bonus ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.bonus li{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 0;
+  font-size:15px;
+}
+.bonus i{color:var(--accent)}
+
+/* SCROLL */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero reveal">
+  <h1>VPS by <span>DigitalOcean</span></h1>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/DigitalOcean_logo.svg" alt="DigitalOcean">
+  <p>VPS stabil, performa tinggi, cocok untuk hosting, panel, bot, dan kebutuhan server lainnya.</p>
+</section>
+
+<!-- TIERS -->
+<section>
+  <div class="tier-grid">
+
+    <!-- LOW -->
+    <div class="card reveal">
+      <span class="badge">LOW</span>
+      <ul class="products">
+        <li><i class="fa-solid fa-gem"></i> RAM 4GB | 2 Core — <strong>10.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 8GB | 4 Core — <strong>15.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 16GB | 4 Core — <strong>20.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 16GB | 8 Core — <strong>35.000</strong></li>
+      </ul>
+      <div class="info">
+        Garansi: <strong>10 Days (2× Replace)</strong>
+        <div class="os">Ubuntu, Debian, AlmaLinux, RockyLinux, CentOS, Windows</div>
+      </div>
+      <a href="https://wa.me/628XXXXXXXXXX" class="btn" target="_blank">Order via WhatsApp</a>
+    </div>
+
+    <!-- HIGH -->
+    <div class="card reveal">
+      <span class="badge">HIGH</span>
+      <ul class="products">
+        <li><i class="fa-solid fa-gem"></i> RAM 4GB | 2 Core — <strong>20.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 8GB | 4 Core — <strong>25.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 16GB | 4 Core — <strong>30.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 16GB | 8 Core — <strong>45.000</strong></li>
+      </ul>
+      <div class="info">
+        Garansi: <strong>15 Days (2× Replace)</strong>
+        <div class="os">Ubuntu, Debian, AlmaLinux, RockyLinux, CentOS, Windows</div>
+      </div>
+      <a href="https://wa.me/628XXXXXXXXXX" class="btn" target="_blank">Order via WhatsApp</a>
+    </div>
+
+    <!-- ULTRA -->
+    <div class="card reveal">
+      <span class="badge">ULTRA</span>
+      <ul class="products">
+        <li><i class="fa-solid fa-gem"></i> RAM 4GB | 2 Core — <strong>50.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 8GB | 4 Core — <strong>55.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 16GB | 4 Core — <strong>60.000</strong></li>
+        <li><i class="fa-solid fa-gem"></i> RAM 16GB | 8 Core — <strong>120.000</strong></li>
+      </ul>
+      <div class="info">
+        Garansi: <strong>28 Days (2× Replace)</strong>
+        <div class="os">Ubuntu, Debian, AlmaLinux, RockyLinux, CentOS, Windows</div>
+      </div>
+      <a href="https://wa.me/62 87745935987" class="btn" target="_blank">Order via WhatsApp</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- BONUS -->
+<section class="bonus reveal">
+  <h2>🎁 Bonus Pembelian VPS</h2>
+  <ul>
+    <li><i class="fa-solid fa-check"></i> Free Install Panel</li>
+    <li><i class="fa-solid fa-check"></i> Free Install Node / Wings</li>
+    <li><i class="fa-solid fa-check"></i> Free Request Subdomain & OS</li>
+    <li><i class="fa-solid fa-check"></i> Free Egg Bot WhatsApp</li>
+    <li><i class="fa-solid fa-check"></i> Full Pengajaran</li>
+  </ul>
+</section>
+
+<script>
+const reveals=document.querySelectorAll('.reveal');
+function onScroll(){
+  reveals.forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-120){
+      el.classList.add('active');
+    }
+  });
+}
+window.addEventListener('scroll',onScroll);
+onScroll();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REVOLIX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    font-family: 'Inter', sans-serif;
+    background-color: #070d22;
+    background-image:
+        linear-gradient(rgba(0,150,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,150,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: #eaf4ff;
+    scroll-behavior: smooth;
+}
+
+/* HEADER */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    backdrop-filter: blur(12px);
+    background: rgba(5, 10, 25, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.nav-container {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00c6ff, #3a7bff);
+    box-shadow: 0 0 18px rgba(0,150,255,0.35);
+}
+
+nav { display: flex; gap: 32px; align-items: center; }
+
+nav a {
+    text-decoration: none;
+    color: #c7dfff;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+nav a:hover { color: #ffffff; }
+
+.client-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,150,255,0.4);
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.client-btn:hover {
+    box-shadow: 0 0 15px rgba(0,150,255,0.4);
+    transform: translateY(-2px);
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+    position: relative;
+    overflow: visible;
+}
+
+.hero-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+}
+
+.hero-content { max-width: 650px; }
+
+.hero-title {
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(90deg, #00c6ff, #3a7bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.hero-title::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 300px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(0,150,255,0.25), transparent 70%);
+    transform: translateY(-50%);
+    z-index: -1;
+    filter: blur(40px);
+}
+
+.typing {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #cce6ff;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 22px;
+    background: #3a7bff;
+    margin-left: 4px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%,50%,100%{opacity:1;}
+    25%,75%{opacity:0;}
+}
+
+.hero-desc {
+    color: #9bb3d4;
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+}
+
+.stars {
+    display: flex;
+    gap: 3px;
+}
+
+.stars svg {
+    width: 9px;
+    height: 9px;
+    fill: #FFD700;
+}
+
+.rating-badge span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.shop-btn {
+    height: 56px;
+    padding: 0 34px;
+    border-radius: 18px;
+    border: none;
+    font-size: 17px;
+    font-weight: 600;
+    background: #e9edf5;
+    color: #111;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.shop-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0,150,255,0.35);
+}
+
+/* HERO BIG IMAGE */
+.hero-big-image {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-big-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 0 80px rgba(0,150,255,0.25);
+  transition: 0.3s ease;
+}
+
+.hero-big-image img:hover {
+  transform: translateY(-8px);
+}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+
+    nav, .client-btn { display:none; }
+
+    .hero-container { grid-template-columns:1fr; }
+
+    .hero { padding:120px 0 80px 0; }
+
+    .hero-content { padding:0 24px; }
+
+    .hero-title { font-size:36px; }
+
+    .typing { font-size:20px; }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .shop-btn { width:100%; }
+}
+
+/* ===== SERVICES SECTION ===== */
+.services {
+  padding: 120px 20px;
+  background: transparent;
+  text-align: center;
+}
+
+.services-wrapper {
+  max-width: 900px;
+  margin: auto;
+}
+
+.services-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,150,255,0.35);
+  background: rgba(0,150,255,0.08);
+  color: #66b3ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 35px;
+}
+
+.services-badge .dot {
+  width: 10px;
+  height: 10px;
+  background: #66b3ff;
+  border-radius: 50%;
+}
+
+.services-title {
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.services-desc {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #a7b3c9;
+}
+
+/* === SCROLL ANIMATION === */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== HOSTING PACKAGES ===== */
+.packages {
+  padding: 90px 20px 140px;
+}
+
+.packages-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+/* CARD */
+.package-card {
+  position: relative;
+  height: 440px;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 0 45px rgba(0,150,255,.2);
+}
+
+/* BACKGROUND IMAGE */
+.package-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+}
+
+/* DARK OVERLAY */
+.package-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(5,10,25,.95),
+    rgba(5,10,25,.6),
+    rgba(5,10,25,.3)
+  );
+}
+
+/* CONTENT */
+.package-content {
+  position: relative;
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: none;
+}
+
+.package-title {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.package-price {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 6px 0;
+}
+
+.package-price span {
+  font-size: 14px;
+  color: #9bb3d4;
+}
+
+.package-spec {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.spec-item i {
+  color: #4da6ff;
+}
+
+.package-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #b7c8e8;
+  margin-top: 10px;
+}
+
+/* BUTTON */
+.package-btn {
+  height: 54px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.1);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.package-btn:hover {
+  background: white;
+  color: #111;
+}
+
+/* BADGE */
+.popular {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #3a7bff;
+  padding: 6px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 999px;
+}
+
+.extreme {
+  background: linear-gradient(135deg,#ff3a3a,#ff7b00);
+}
+
+/* === MOST POPULAR STRIP === */
+.popular-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 42px;
+  background: linear-gradient(90deg, #3a7bff, #00c6ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fff;
+  z-index: 3;
+}
+
+/* ===== INCLUDED FEATURES ===== */
+.included {
+  padding: 80px 20px 120px;
+  text-align: center;
+}
+
+.included-title {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #9bb3d4;
+  margin-bottom: 30px;
+}
+
+.included-grid {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px 20px;
+}
+
+/* ITEM */
+.included-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  font-size: 14px;
+  color: #eaf4ff;
+}
+
+/* ICON BULAT */
+.included-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(58,123,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.included-icon i {
+  font-size: 13px;
+  color: #4da6ff;
+}
+
+.platform-section{
+  padding:80px 20px;
+  text-align:center;
+  background: transparent;
+  color:#fff;
+}
+
+.platform-badge{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:999px;
+  background:rgba(0,150,255,.15);
+  color:#7dd3fc;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-bottom:18px;
+}
+
+.platform-section h2{
+  font-size:36px;
+  margin:0;
+  font-weight:800;
+}
+
+.platform-desc{
+  max-width:600px;
+  margin:14px auto 50px;
+  color:#9ca3af;
+  line-height:1.6;
+}
+
+.platform-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  max-width:720px;
+  margin:auto;
+}
+
+.platform-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:28px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  transition:.3s;
+}
+
+.platform-card:hover{
+  transform:translateY(-6px);
+  border-color:#38bdf8;
+  box-shadow:0 0 30px rgba(56,189,248,.25);
+}
+
+.platform-card img{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  filter:grayscale(20%);
+}
+
+.platform-card span{
+  font-weight:600;
+  font-size:16px;
+}
+
+.testimonial{
+  padding:100px 20px;
+  text-align:center;
+  color:#fff;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.badge.blue{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:999px;
+  border:1px solid #38bdf8;
+  color:#7dd3fc;
+  background:rgba(56,189,248,.08);
+  margin-bottom:20px;
+}
+
+.testimonial h2{
+  font-size:36px;
+  font-weight:800;
+}
+
+.desc{
+  max-width:600px;
+  margin:14px auto 60px;
+  color:#9ca3af;
+}
+
+.marquee{
+  overflow:hidden;
+  margin:20px 0;
+}
+
+.marquee-track{
+  display:flex;
+  gap:20px;
+  width:max-content;
+}
+
+.review-card{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  padding:18px;
+  width:320px;
+  border-radius:20px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.review-card img{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.review-card strong{
+  display:block;
+  font-size:15px;
+}
+
+.review-card span{
+  font-size:13px;
+  color:#9ca3af;
+}
+
+.review-card p{
+  font-size:14px;
+  margin-top:6px;
+  color:#e5e7eb;
+}
+
+.marquee-left .marquee-track{
+  animation:scroll-left 35s linear infinite;
+}
+
+.marquee-right .marquee-track{
+  animation:scroll-right 35s linear infinite;
+}
+
+@keyframes scroll-left{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+@keyframes scroll-right{
+  from{transform:translateX(-50%);}
+  to{transform:translateX(0);}
+}
+
+<style>
+.faq-section{
+  padding:120px 20px;
+  background:radial-gradient(circle at top,#0b1020,#05060a);
+  color:#fff;
+}
+
+.faq-container{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+}
+
+.faq-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:999px;
+  background:rgba(59,130,246,.15);
+  color:#60a5fa;
+  font-weight:600;
+  font-size:12px;
+}
+
+.faq-container h2{
+  font-size:36px;
+  font-weight:800;
+  margin:24px 0 12px;
+}
+
+.faq-desc{
+  color:#9ca3af;
+  max-width:520px;
+  margin:0 auto 40px;
+}
+
+.faq-tabs{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+}
+
+.tab{
+  padding:12px 22px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  color:#cbd5f5;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.tab.active{
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  color:#fff;
+}
+
+.faq-item{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  margin-bottom:16px;
+  overflow:hidden;
+  text-align:left;
+}
+
+.faq-question{
+  padding:18px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.faq-question i{
+  transition:.3s;
+}
+
+.faq-item.active i{
+  transform:rotate(180deg);
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+
+.faq-answer p{
+  padding:0 22px 20px;
+  color:#9ca3af;
+  line-height:1.7;
+}
+
+.footer{
+  background:linear-gradient(180deg,#050814,#02040a);
+  padding:70px 20px 90px;
+}
+
+/* ISI SAJA, BUKAN CARD */
+.footer-content{
+  max-width:420px;
+  margin:auto;
+}
+
+/* BRAND */
+.footer-brand{
+  display:flex;
+  flex-direction:column; /* KUNCI */
+  align-items:flex-start;
+  gap:8px;
+}
+
+.logo-big{
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  object-fit:cover;
+}
+
+.brand-text{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:22px;
+  font-weight:800;
+  color:#fff;
+}
+
+.logo-small{
+  width:26px;
+  height:26px;
+}
+
+.brand-text .blue{
+  color:#3aa9ff;
+}
+
+/* TEXT */
+.footer-desc{
+  margin-top:16px;
+  font-size:15px;
+  color:#9ca3af;
+}
+
+.footer-made{
+  margin-top:6px;
+  color:#cbd5f5;
+}
+
+/* ICON */
+.footer-social{
+  margin-top:22px;
+  display:flex;
+  gap:14px;
+}
+
+.footer-social a{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:rgba(255,255,255,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  color:#fff;
+  text-decoration:none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 36px;      /* UKURAN AMAN */
+  width: auto;       /* BIAR GAK MELEBAR */
+  max-width: 120px;  /* BATAS MAX */
+  object-fit: contain;
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger-btn{
+  display:none;
+  width:26px;
+  cursor:pointer;
+}
+
+.hamburger-btn span{
+  display:block;
+  height:3px;
+  background:#eaf4ff;
+  margin:5px 0;
+  border-radius:2px;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:80%;
+  height:100vh;
+  background:#070814;
+  padding:90px 24px;
+  transition:.3s ease;
+  z-index:9999;
+}
+
+.mobile-menu.active{
+  right:0;
+}
+
+.mobile-menu a{
+  display:block;
+  margin:16px 0;
+  text-decoration:none;
+  color:#eaf4ff;
+  font-weight:500;
+}
+
+/* GROUP */
+.menu-group{
+  margin-top:22px;
+}
+
+.menu-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.arrow{
+  font-size:12px;
+  transition:.3s;
+}
+
+/* SUBMENU */
+.submenu{
+  max-height:0;
+  overflow:hidden;
+  margin-left:12px;
+  transition:.3s ease;
+}
+
+.submenu.active{
+  max-height:200px;
+}
+
+.menu-title.toggle.active .arrow{
+  transform:rotate(180deg);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:992px){
+  nav{
+    display:none;
+  }
+  .hamburger-btn{
+    display:block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav-container">
+
+    <div class="logo">
+      <img src="logo-kanan.png" alt="REVOLIX Logo" class="logo-img">
+    </div>
+
+    <nav>
+      <a href="lobby.html">Home</a>
+      <a href="#pricing">Pricing</a>
+      <a href="panel.html">Panel</a>
+      <a href="support.html">Contact</a>
+    </nav>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger-btn" id="hamburgerBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+
+  <a href="lobby.html">Beranda</a>
+
+  <div class="menu-group">
+    <div class="menu-title toggle">
+      Minecraft Hosting
+      <span class="arrow">▼</span>
+    </div>
+    <div class="submenu">
+      <a href="lobby.html#private">Private Hosting</a>
+      <a href="lobby.html#shared">Shared Hosting</a>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <div class="menu-title">Other Products</div>
+    <a href="vps.html">VPS</a>
+    <a href="domain.html">Domain</a>
+    <a href="setup.html">Setup Server</a>
+    <a href="panel.html">Game Panel</a>
+    <a href="support.html">Support</a>
+  </div>
+
+</div>
+
+<section class="hero">
+<div class="hero-container">
+<div class="hero-content">
+
+<h1 class="hero-title">
+REVOLIX<br>Next-Generation
+</h1>
+
+<div class="typing">
+Lo<span id="typed"></span><span class="cursor"></span>
+</div>
+
+<p class="hero-desc">
+Enjoy high-performance hosting with instant setup,
+advanced DDoS protection, and 24/7 support ready
+to assist you anytime.
+</p>
+
+<div class="hero-buttons">
+
+<div class="rating-badge">
+<div class="stars">
+<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.8 5.8 20.2l1.6-6.8-5.2-4.5 6.9-.6z"/></svg>
+<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.8 5.8 20.2l1.6-6.8-5.2-4.5 6.9-.6z"/></svg>
+<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.8 5.8 20.2l1.6-6.8-5.2-4.5 6.9-.6z"/></svg>
+<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.8 5.8 20.2l1.6-6.8-5.2-4.5 6.9-.6z"/></svg>
+<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.8L12 17.8 5.8 20.2l1.6-6.8-5.2-4.5 6.9-.6z"/></svg>
+</div>
+<span>320+ Pelanggan</span>
+</div>
+
+<button class="shop-btn">Mulai Belanja →</button>
+
+</div> <!-- tutup hero-buttons -->
+
+<div class="hero-big-image scroll-animate">
+  <img src="poster.jpg" alt="Server Hosting">
+</div>
+
+</div>
+</div>
+</section>
+
+<section class="services scroll-animate">
+  <div class="services-wrapper">
+
+    <div class="services-badge">
+      <span class="dot"></span>
+      SOLUSI HOSTING PROFESIONAL
+    </div>
+
+    <h2 class="services-title scroll-animate">
+      Layanan Hosting Terbaik
+    </h2>
+
+    <p class="services-desc scroll-animate">
+      Temukan solusi hosting yang tepat untuk kebutuhan Anda. 
+      Dari shared hosting hingga private cloud, kami menyediakan 
+      infrastruktur andal dengan performa tinggi.
+    </p>
+
+  </div>
+</section>
+<section class="packages scroll-animate">
+  <div class="packages-grid">
+
+    <!-- LITE HOSTING -->
+    <div class="package-card">
+      <div class="package-bg" style="background-image:url('minecraft-lite.jpg')"></div>
+
+      <div class="package-content">
+        <div>
+          <h3 class="package-title">Lite Hosting</h3>
+          <div class="package-price">Rp5.000 <span>/bulan</span></div>
+
+          <div class="package-spec">
+            <div class="spec-item">
+              <i class="fa-solid fa-microchip"></i> AMD EPYC
+            </div>
+            <div class="spec-item">
+              <i class="fa-solid fa-memory"></i> 1 – 16 GB RAM
+            </div>
+          </div>
+
+          <p class="package-desc">
+            Cocok untuk server kecil dan main santai bareng teman.
+          </p>
+        </div>
+
+        <button class="package-btn" onclick="location.href='paket-lite.html'">
+          Lihat Paket →
+        </button>
+      </div>
+    </div>
+
+    <!-- MEDIUM HOSTING -->
+    <div class="package-card">
+      
+      <span class="popular">MOST POPULAR</span>
+      <div class="package-bg" style="background-image:url('minecraft-medium.jpg')"></div>
+
+      <div class="package-content">
+        <div>
+          <h3 class="package-title">Medium Hosting</h3>
+          <div class="package-price">Rp15.000 <span>/bulan</span></div>
+
+          <div class="package-spec">
+            <div class="spec-item">
+              <i class="fa-solid fa-microchip"></i> AMD EPYC 7443P
+            </div>
+            <div class="spec-item">
+              <i class="fa-solid fa-memory"></i> 1 – 16 GB RAM
+            </div>
+          </div>
+
+          <p class="package-desc">
+            Ideal untuk server aktif dengan plugin dan player ramai.
+          </p>
+        </div>
+
+        <button class="package-btn" onclick="location.href='paket-medium.html'">
+          Lihat Paket →
+        </button>
+      </div>
+    </div>
+
+    <!-- EXTREME HOSTING -->
+    <div class="package-card">
+      <span class="popular extreme">EXTREME</span>
+      <div class="package-bg" style="background-image:url('minecraft-extreme.jpg')"></div>
+
+      <div class="package-content">
+        <div>
+          <h3 class="package-title">Extreme Hosting</h3>
+          <div class="package-price">Rp25.000 <span>/bulan</span></div>
+
+          <div class="package-spec">
+            <div class="spec-item">
+              <i class="fa-solid fa-microchip"></i> Ryzen 7 3700X
+            </div>
+            <div class="spec-item">
+              <i class="fa-solid fa-memory"></i> 1 – 16 GB RAM
+            </div>
+          </div>
+
+          <p class="package-desc">
+            Performa maksimal untuk server besar, modpack & komunitas.
+          </p>
+        </div>
+
+        <button class="package-btn" onclick="location.href='paket-extreme.html'">
+          Lihat Paket →
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="included scroll-animate">
+
+  <div class="included-title">
+    SEMUA PAKET SUDAH TERMASUK
+  </div>
+
+  <div class="included-grid">
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-arrows-rotate"></i>
+      </div>
+      Free Server Migration
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-server"></i>
+      </div>
+      Pterodactyl Panel
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      DDoS Protection
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-folder-open"></i>
+      </div>
+      Full FTP Access
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      Instant Setup
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-database"></i>
+      </div>
+      Auto Backups
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-headset"></i>
+      </div>
+      24/7 Support
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-upload"></i>
+      </div>
+      Custom JAR Upload
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-database"></i>
+      </div>
+      MySQL Database
+    </div>
+
+    <div class="included-item">
+      <div class="included-icon">
+        <i class="fa-solid fa-globe"></i>
+      </div>
+      Subdomain Gratis
+    </div>
+
+  </div>
+</section>
+<script>
+// ===== TYPING =====
+const words=["ading Super Fast","ading Secure Servers","ading Without Limits"];
+let i=0,j=0,currentWord="",isDeleting=false;
+const typed=document.getElementById("typed");
+function type(){
+currentWord=words[i];
+if(!isDeleting){
+typed.textContent=currentWord.slice(0,j++);
+if(j>currentWord.length){setTimeout(()=>isDeleting=true,1500);}
+}else{
+typed.textContent=currentWord.slice(0,j--);
+if(j===0){isDeleting=false;i=(i+1)%words.length;}
+}
+setTimeout(type,isDeleting?40:70);
+}
+type();
+</script>
+
+<script>
+// ===== HAMBURGER =====
+const hamburger = document.getElementById("hamburger");
+const nav = document.querySelector("nav");
+hamburger.addEventListener("click", function() {
+  nav.classList.toggle("active");
+});
+</script>
+
+<script>
+// ===== SCROLL ANIMATION =====
+const scrollElements = document.querySelectorAll(".scroll-animate");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, {
+  threshold: 0.15
+});
+
+scrollElements.forEach(el => {
+  observer.observe(el);
+});
+</script>
+<section class="platform-section">
+  <div class="platform-badge">● PLATFORM YANG DIDUKUNG</div>
+
+  <h2>Semua Tipe Server<br>Minecraft</h2>
+  <p class="platform-desc">
+    Beralih antara Paper, Forge, NeoForge, Bedrock,
+    dan Geyser dengan mudah dalam beberapa klik.
+  </p>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <img src="img/vanilla.png" alt="Vanilla">
+      <span>Vanilla</span>
+    </div>
+
+    <div class="platform-card">
+      <img src="img/paper.png" alt="Paper">
+      <span>Paper</span>
+    </div>
+
+    <div class="platform-card">
+      <img src="img/fabric.png" alt="Fabric">
+      <span>Fabric</span>
+    </div>
+
+    <div class="platform-card">
+      <img src="img/forge.png" alt="Forge">
+      <span>Forge</span>
+    </div>
+
+    <div class="platform-card">
+      <img src="img/neoforge.png" alt="NeoForge">
+      <span>NeoForge</span>
+    </div>
+
+    <div class="platform-card">
+      <img src="img/bedrock.png" alt="Bedrock">
+      <span>Bedrock</span>
+    </div>
+  </div>
+</section>
+<section class="testimonial">
+  <div class="container">
+
+    <span class="badge blue">Our Customers</span>
+
+    <h2>Apa Kata Mereka?</h2>
+    <p class="desc">
+      Beberapa komentar asli dari pelanggan kami yang diambil langsung dari
+      komentar di postingan tiktok & instagram Revolix Host.
+    </p>
+
+    <!-- BARIS ATAS -->
+    <div class="marquee marquee-left">
+      <div class="marquee-track">
+
+        <div class="review-card">
+          <img src="img/user1.jpg" alt="">
+          <div>
+            <strong>Aulia Anasty</strong>
+            <span>@auliaanasty</span>
+            <p>Harga masuk akal, pelayanan sangat profesional.</p>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <img src="img/user2.jpg" alt="">
+          <div>
+            <strong>Blitz Kring</strong>
+            <span>@blitzkring</span>
+            <p>Hostingnya lancar, murah, dan keren.</p>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <img src="img/user3.jpg" alt="">
+          <div>
+            <strong>Rama Dev</strong>
+            <span>@ramadev</span>
+            <p>Admin fast respon, server stabil.</p>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <img src="img/user4.jpg" alt="">
+          <div>
+            <strong>Naufal MC</strong>
+            <span>@naufalmc</span>
+            <p>Cocok buat server Minecraft besar.</p>
+          </div>
+        </div>
+
+        <!-- DUPLIKAT -->
+        <div class="review-card">…</div>
+        <div class="review-card">…</div>
+        <div class="review-card">…</div>
+        <div class="review-card">…</div>
+
+      </div>
+    </div>
+
+    <!-- BARIS BAWAH -->
+    <div class="marquee marquee-right">
+      <div class="marquee-track">
+
+        <div class="review-card">
+          <img src="img/user5.jpg" alt="">
+          <div>
+            <strong>Sofi Widya</strong>
+            <span>@sofiwidya.btm</span>
+            <p>Server kuat, bisa tampung banyak player.</p>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <img src="img/user6.jpg" alt="">
+          <div>
+            <strong>Fajar Host</strong>
+            <span>@fajarhost</span>
+            <p>Panel gampang dipakai.</p>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <img src="img/user7.jpg" alt="">
+          <div>
+            <strong>Rizky Dev</strong>
+            <span>@rizkydev</span>
+            <p>Anti lag walau ramai.</p>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <img src="img/user8.jpg" alt="">
+          <div>
+            <strong>Andra MC</strong>
+            <span>@andramc</span>
+            <p>Recommended banget.</p>
+          </div>
+        </div>
+
+        <!-- DUPLIKAT -->
+        <div class="review-card">…</div>
+        <div class="review-card">…</div>
+        <div class="review-card">…</div>
+        <div class="review-card">…</div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="faq-section">
+  <div class="faq-container">
+
+    <div class="faq-badge">
+      <i class="fa-regular fa-circle-question"></i> FAQ
+    </div>
+
+    <h2>Pertanyaan yang<br>Sering Diajukan</h2>
+
+    <p class="faq-desc">
+      Temukan jawaban atas pertanyaan umum seputar layanan kami
+      untuk membantu Anda mengambil keputusan dengan lebih mudah.
+    </p>
+
+    <!-- TABS -->
+    <div class="faq-tabs">
+      <button class="tab active" data-tab="layanan">
+        <i class="fa-solid fa-circle-info"></i> Layanan
+      </button>
+      <button class="tab" data-tab="teknis">
+        <i class="fa-solid fa-gear"></i> Teknis
+      </button>
+      <button class="tab" data-tab="support">
+        <i class="fa-solid fa-headset"></i> Support
+      </button>
+    </div>
+
+    <!-- FAQ LIST -->
+    <div class="faq-list" id="faqList"></div>
+
+  </div>
+</section>
+<script>
+const data = {
+  layanan: [
+    {
+      q: "Jenis layanan apa saja yang tersedia?",
+      a: "Kami menyediakan Web Hosting, VPS, Private Cloud, dan Dedicated Server dengan performa tinggi."
+    },
+    {
+      q: "Apakah layanan bisa di-upgrade?",
+      a: "Ya, semua layanan dapat di-upgrade kapan saja tanpa kehilangan data."
+    },
+    {
+      q: "Apakah tersedia trial?",
+      a: "Beberapa layanan menyediakan trial atau garansi refund sesuai ketentuan."
+    }
+  ],
+  teknis: [
+    {
+      q: "Panel apa yang digunakan?",
+      a: "Kami menggunakan panel modern yang mudah digunakan dan stabil."
+    },
+    {
+      q: "Apakah tersedia proteksi DDoS?",
+      a: "Ya, semua server dilengkapi proteksi DDoS berlapis."
+    },
+    {
+      q: "Bisa upload custom file?",
+      a: "Tentu, Anda mendapatkan akses penuh sesuai layanan."
+    }
+  ],
+  support: [
+    {
+      q: "Apakah support 24 jam?",
+      a: "Ya, tim support kami siap membantu 24/7."
+    },
+    {
+      q: "Melalui apa support diberikan?",
+      a: "Support tersedia melalui tiket, chat, dan email."
+    },
+    {
+      q: "Berapa lama respon support?",
+      a: "Rata-rata respon kami kurang dari 15 menit."
+    }
+  ]
+};
+
+const faqList = document.getElementById("faqList");
+const tabs = document.querySelectorAll(".tab");
+
+function renderFAQ(type){
+  faqList.innerHTML = "";
+  data[type].forEach(item=>{
+    faqList.innerHTML += `
+      <div class="faq-item">
+        <div class="faq-question">
+          ${item.q}
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>${item.a}</p>
+        </div>
+      </div>
+    `;
+  });
+
+  document.querySelectorAll(".faq-question").forEach(q=>{
+    q.onclick = ()=>{
+      const item = q.parentElement;
+      item.classList.toggle("active");
+      const ans = item.querySelector(".faq-answer");
+      ans.style.maxHeight = ans.style.maxHeight ? null : ans.scrollHeight+"px";
+    };
+  });
+}
+
+tabs.forEach(tab=>{
+  tab.onclick = ()=>{
+    tabs.forEach(t=>t.classList.remove("active"));
+    tab.classList.add("active");
+    renderFAQ(tab.dataset.tab);
+  };
+});
+
+renderFAQ("layanan");
+</script>
+<footer class="footer">
+  <div class="footer-content">
+
+    <div class="footer-brand">
+      <img src="logo-besar.png" class="logo-big">
+      <div class="brand-text">
+        <img src="logo-kecil.png" class="logo-small">
+        <span>REVOLIX<span class="blue">HOST</span></span>
+      </div>
+    </div>
+
+    <p class="footer-desc">Thx sudah menggunjungi web kami.</p>
+    <p class="footer-made">Made by <strong>@manznomarga</strong></p>
+
+    <div class="footer-social">
+      <a href="https://discord.gg/YJnR5jQazt" target="_blank">
+        <i class="fa-brands fa-discord"></i>
+      </a>
+      <a href="https://tiktok.com/@revolix.com" target="_blank">
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+      <a href="https://wa.me/6287745935987" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+    </div>
+
+  </div>
+</footer>
+<!-- HAMBURGER ICON -->
+<button class="hamburger-btn" id="openMenu">
+  <i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- OVERLAY MENU -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-panel">
+
+    <button class="close-menu" id="closeMenu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <ul class="menu-list">
+      <li><a href="lobby.html"><i class="fa-solid fa-house"></i> Beranda</a></li>
+
+      <li class="menu-dropdown">
+        <div class="dropdown-header">
+          <i class="fa-solid fa-server"></i> Minecraft Hosting
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="dropdown-body">
+          <a href="#">Private Hosting</a>
+          <a href="#">Shared Hosting</a>
+        </div>
+      </li>
+
+      <li class="menu-dropdown">
+        <div class="dropdown-header">
+          <i class="fa-solid fa-box"></i> Other Products
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="dropdown-body">
+          <a href="#">VPS</a>
+          <a href="#">Domain</a>
+          <a href="#">Setup Server</a>
+          <a href="#">Backup</a>
+          <a href="#">Monitoring</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="lang-switch">
+      <button>🇮🇩 ID</button>
+      <button>🇬🇧 EN</button>
+    </div>
+
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const hamburger = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const toggle = document.querySelector(".menu-title.toggle");
+
+  hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+  });
+
+  toggle.addEventListener("click", () => {
+    toggle.classList.toggle("active");
+    toggle.nextElementSibling.classList.toggle("active");
+  });
+
+  document.querySelectorAll(".mobile-menu a").forEach(link=>{
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("active");
+    });
+  });
+
+});
+</script>
+</body>
+</html>
