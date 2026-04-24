@@ -406,11 +406,11 @@ h1{font-size:42px;font-weight:800;line-height:1.1;margin-bottom:20px;}
 <script>
 const container = document.getElementById("productContainer");
 
-let stock = {5:0,9:0,14:0,16:0};
+let stock = {0:0,9:0,0:0,0:0};
 
 for(let i=1;i<=16;i++){
 
-let price = 5000*i;
+let price = 6500*i;
 let ram = i;
 let disk = i * 2;
 
@@ -454,7 +454,7 @@ Rp${price.toLocaleString('id-ID')} <span>/bulan</span>
 <div class="spec-list">
 <div class="spec"><i class="fa-solid fa-memory"></i>${ram} GB RAM</div>
 <div class="spec"><i class="fa-solid fa-hard-drive"></i>${disk} GB NVMe SSD</div>
-<div class="spec"><i class="fa-solid fa-microchip"></i>${core} Core AMD EPYC</div>
+<div class="spec"><i class="fa-solid fa-microchip"></i>${core} Core INTEL PLATINUM</div>
 </div>
 
 <button class="choose-btn ${isSold?'disabled':''}"
