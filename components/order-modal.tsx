@@ -128,6 +128,7 @@ CPU: ${selectedPackage.cpu}
 Payment: ${paymentName}
 Gmail: ${formData.gmail}
 Username: ${formData.username}
+Password: ${formData.password}
 
 Total: Rp ${getTotalPrice().toLocaleString()}`
 
