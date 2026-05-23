@@ -66,6 +66,7 @@ export function OrderModal({ isOpen, onClose, selectedPackage, qrisImage }: Orde
   const [selectedGame, setSelectedGame] = useState<string | null>(null)
   const [selectedEgg, setSelectedEgg] = useState<string | null>(null)
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null)
+  const [selectedPeriod, setSelectedPeriod] = useState<"weekly" | "monthly">("weekly")
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   
@@ -83,6 +84,7 @@ export function OrderModal({ isOpen, onClose, selectedPackage, qrisImage }: Orde
       setSelectedGame(null)
       setSelectedEgg(null)
       setSelectedPayment(null)
+      setSelectedPeriod("weekly")
       setFormData({ gmail: "", username: "", password: "" })
     }
   }, [isOpen])
@@ -106,7 +108,12 @@ export function OrderModal({ isOpen, onClose, selectedPackage, qrisImage }: Orde
 
   const getTotalPrice = () => {
     if (!selectedPackage) return 0
-    return selectedPackage.price * selectedRam
+    let price = selectedPackage.price * selectedRam
+    // If Lite package and monthly is selected, multiply by 4.33 (average weeks per month)
+    if (selectedPackage.id === "lite" && selectedPeriod === "monthly") {
+      price = Math.round(price * 4.33)
+    }
+    return price
   }
 
   const handleSubmit = () => {
@@ -125,6 +132,7 @@ RAM: ${selectedRam}GB
 Game: ${gameName}
 Egg: ${eggName}
 CPU: ${selectedPackage.cpu}
+Periode: ${selectedPackage.id === "lite" ? (selectedPeriod === "weekly" ? "Mingguan" : "Bulanan") : "-"}
 Payment: ${paymentName}
 Gmail: ${formData.gmail}
 Username: ${formData.username}
@@ -281,6 +289,35 @@ Total: Rp ${getTotalPrice().toLocaleString()}`
                       </button>
                     ))}
                   </div>
+
+                  {/* Period Selection for Lite Package */}
+                  {selectedPackage.id === "lite" && (
+                    <div className="mt-8 pt-8 border-t border-border">
+                      <h4 className="font-semibold text-foreground mb-4">Pilih Periode</h4>
+                      <div className="grid grid-cols-2 gap-3">
+                        <button
+                          onClick={() => setSelectedPeriod("weekly")}
+                          className={`py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
+                            selectedPeriod === "weekly"
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-secondary hover:bg-secondary/80 text-foreground"
+                          }`}
+                        >
+                          Mingguan
+                        </button>
+                        <button
+                          onClick={() => setSelectedPeriod("monthly")}
+                          className={`py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
+                            selectedPeriod === "monthly"
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-secondary hover:bg-secondary/80 text-foreground"
+                          }`}
+                        >
+                          Bulanan
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               )}
 

@@ -14,6 +14,12 @@ interface SettingsModalProps {
   onQrisChange: (qris: string | null) => void
 }
 
+interface StockSettings {
+  lite: { [key: number]: boolean }
+  medium: { [key: number]: boolean }
+  extreme: { [key: number]: boolean }
+}
+
 const SETTINGS_KEY = "cmV2b2xpeDIwMjY="
 
 export function SettingsModal({
@@ -28,6 +34,11 @@ export function SettingsModal({
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
+  const [settingsTab, setSettingsTab] = useState<"general" | "stock">("general")
+  const [stockSettings, setStockSettings] = useState<StockSettings>(() => {
+    const saved = localStorage.getItem("revolix_stock_settings")
+    return saved ? JSON.parse(saved) : { lite: {}, medium: {}, extreme: {} }
+  })
   const logoInputRef = useRef<HTMLInputElement>(null)
   const qrisInputRef = useRef<HTMLInputElement>(null)
 
@@ -48,6 +59,7 @@ export function SettingsModal({
     setIsAuthenticated(false)
     setPassword("")
     setError("")
+    setSettingsTab("general")
     onClose()
   }
 
@@ -73,6 +85,30 @@ export function SettingsModal({
     }
   }
 
+  const toggleStock = (packageId: "lite" | "medium" | "extreme", ram: number) => {
+    const newSettings = { ...stockSettings }
+    newSettings[packageId] = { ...newSettings[packageId] }
+    newSettings[packageId][ram] = !newSettings[packageId][ram]
+    setStockSettings(newSettings)
+    localStorage.setItem("revolix_stock_settings", JSON.stringify(newSettings))
+  }
+
+  const togglePackageOutOfStock = (packageId: "lite" | "medium" | "extreme") => {
+    const newSettings = { ...stockSettings }
+    const isAllOutOfStock = Object.values(newSettings[packageId]).every(v => v === true)
+    newSettings[packageId] = {}
+    for (let i = 1; i <= 16; i++) {
+      newSettings[packageId][i] = !isAllOutOfStock
+    }
+    setStockSettings(newSettings)
+    localStorage.setItem("revolix_stock_settings", JSON.stringify(newSettings))
+  }
+
+  const isPackageOutOfStock = (packageId: "lite" | "medium" | "extreme") => {
+    const ramSettings = stockSettings[packageId]
+    return Object.values(ramSettings).length === 16 && Object.values(ramSettings).every(v => v === true)
+  }
+
   if (!isOpen) return null
 
   return (
@@ -88,11 +124,11 @@ export function SettingsModal({
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="w-full max-w-md glass-card rounded-2xl overflow-hidden"
+          className="w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-card rounded-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <div className="sticky top-0 z-10 glass flex items-center justify-between px-6 py-4 border-b border-border">
             <div className="flex items-center gap-3">
               {isAuthenticated ? (
                 <Settings className="w-5 h-5 text-primary" />
@@ -100,7 +136,7 @@ export function SettingsModal({
                 <Lock className="w-5 h-5 text-primary" />
               )}
               <h2 className="text-lg font-bold text-foreground">
-                {isAuthenticated ? "Settings" : "Masukkan Password"}
+                {isAuthenticated ? "Admin Settings" : "Masukkan Password"}
               </h2>
             </div>
             <button
@@ -158,106 +194,242 @@ export function SettingsModal({
           ) : (
             /* Settings Content */
             <>
-              <div className="p-6 space-y-6">
-                {/* Logo Upload */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-3">
-                    Logo Website
-                  </label>
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 rounded-xl bg-secondary border border-border flex items-center justify-center overflow-hidden">
-                      {logo ? (
-                        <Image
-                          src={logo}
-                          alt="Logo"
-                          width={80}
-                          height={80}
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <ImageIcon className="w-8 h-8 text-muted-foreground" />
-                      )}
-                    </div>
-                    <div className="flex-1 space-y-2">
-                      <input
-                        ref={logoInputRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={handleLogoUpload}
-                        className="hidden"
-                      />
-                      <button
-                        onClick={() => logoInputRef.current?.click()}
-                        className="w-full px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-                      >
-                        <Upload size={16} />
-                        Upload Logo
-                      </button>
-                      {logo && (
-                        <button
-                          onClick={() => onLogoChange(null)}
-                          className="w-full px-4 py-2 rounded-lg bg-destructive/10 hover:bg-destructive/20 text-destructive text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-                        >
-                          <Trash2 size={16} />
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Support PNG transparan. Logo akan tampil di navbar dan footer.
-                  </p>
-                </div>
+              {/* Tabs */}
+              <div className="flex gap-2 px-6 py-4 border-b border-border">
+                <button
+                  onClick={() => setSettingsTab("general")}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    settingsTab === "general"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary hover:bg-secondary/80 text-foreground"
+                  }`}
+                >
+                  General
+                </button>
+                <button
+                  onClick={() => setSettingsTab("stock")}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    settingsTab === "stock"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary hover:bg-secondary/80 text-foreground"
+                  }`}
+                >
+                  Stock Management
+                </button>
+              </div>
 
-                {/* QRIS Upload */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-3">
-                    QRIS Payment
-                  </label>
-                  <div className="flex items-start gap-4">
-                    <div className="w-20 h-20 rounded-xl bg-secondary border border-border flex items-center justify-center overflow-hidden">
-                      {qrisImage ? (
-                        <Image
-                          src={qrisImage}
-                          alt="QRIS"
-                          width={80}
-                          height={80}
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <span className="text-2xl">📱</span>
-                      )}
+              <div className="p-6">
+                {settingsTab === "general" ? (
+                  /* General Settings */
+                  <div className="space-y-6">
+                    {/* Logo Upload */}
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-3">
+                        Logo Website
+                      </label>
+                      <div className="flex items-start gap-4">
+                        <div className="w-20 h-20 rounded-xl bg-secondary border border-border flex items-center justify-center overflow-hidden">
+                          {logo ? (
+                            <Image
+                              src={logo}
+                              alt="Logo"
+                              width={80}
+                              height={80}
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <ImageIcon className="w-8 h-8 text-muted-foreground" />
+                          )}
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <input
+                            ref={logoInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleLogoUpload}
+                            className="hidden"
+                          />
+                          <button
+                            onClick={() => logoInputRef.current?.click()}
+                            className="w-full px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                          >
+                            <Upload size={16} />
+                            Upload Logo
+                          </button>
+                          {logo && (
+                            <button
+                              onClick={() => onLogoChange(null)}
+                              className="w-full px-4 py-2 rounded-lg bg-destructive/10 hover:bg-destructive/20 text-destructive text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                            >
+                              <Trash2 size={16} />
+                              Remove
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Support PNG transparan. Logo akan tampil di navbar dan footer.
+                      </p>
                     </div>
-                    <div className="flex-1 space-y-2">
-                      <input
-                        ref={qrisInputRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={handleQrisUpload}
-                        className="hidden"
-                      />
-                      <button
-                        onClick={() => qrisInputRef.current?.click()}
-                        className="w-full px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-                      >
-                        <Upload size={16} />
-                        Upload QRIS
-                      </button>
-                      {qrisImage && (
-                        <button
-                          onClick={() => onQrisChange(null)}
-                          className="w-full px-4 py-2 rounded-lg bg-destructive/10 hover:bg-destructive/20 text-destructive text-sm font-medium flex items-center justify-center gap-2 transition-colors"
-                        >
-                          <Trash2 size={16} />
-                          Remove
-                        </button>
-                      )}
+
+                    {/* QRIS Upload */}
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-3">
+                        QRIS Payment
+                      </label>
+                      <div className="flex items-start gap-4">
+                        <div className="w-20 h-20 rounded-xl bg-secondary border border-border flex items-center justify-center overflow-hidden">
+                          {qrisImage ? (
+                            <Image
+                              src={qrisImage}
+                              alt="QRIS"
+                              width={80}
+                              height={80}
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <span className="text-2xl">📱</span>
+                          )}
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <input
+                            ref={qrisInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleQrisUpload}
+                            className="hidden"
+                          />
+                          <button
+                            onClick={() => qrisInputRef.current?.click()}
+                            className="w-full px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                          >
+                            <Upload size={16} />
+                            Upload QRIS
+                          </button>
+                          {qrisImage && (
+                            <button
+                              onClick={() => onQrisChange(null)}
+                              className="w-full px-4 py-2 rounded-lg bg-destructive/10 hover:bg-destructive/20 text-destructive text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                            >
+                              <Trash2 size={16} />
+                              Remove
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Upload gambar QRIS untuk pembayaran. Akan tampil saat user memilih metode QRIS.
+                      </p>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Upload gambar QRIS untuk pembayaran. Akan tampil saat user memilih metode QRIS.
-                  </p>
-                </div>
+                ) : (
+                  /* Stock Management */
+                  <div className="space-y-6">
+                    <p className="text-sm text-muted-foreground">
+                      Kelola ketersediaan stock untuk setiap paket dan kapasitas RAM
+                    </p>
+
+                    {/* Lite Package */}
+                    <div className="border border-border rounded-xl p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-semibold text-foreground">Lite Package</h4>
+                        <button
+                          onClick={() => togglePackageOutOfStock("lite")}
+                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                            isPackageOutOfStock("lite")
+                              ? "bg-destructive/20 text-destructive"
+                              : "bg-primary/20 text-primary"
+                          }`}
+                        >
+                          {isPackageOutOfStock("lite") ? "Habis" : "Tersedia"}
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-4 gap-2">
+                        {[1, 2, 4, 8, 12, 16].map((ram) => (
+                          <button
+                            key={ram}
+                            onClick={() => toggleStock("lite", ram)}
+                            className={`py-2 rounded-lg text-sm font-medium transition-colors ${
+                              stockSettings.lite[ram]
+                                ? "bg-destructive/20 text-destructive line-through"
+                                : "bg-primary/20 text-primary hover:bg-primary/30"
+                            }`}
+                          >
+                            {ram} GB
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Medium Package */}
+                    <div className="border border-border rounded-xl p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-semibold text-foreground">Medium Package</h4>
+                        <button
+                          onClick={() => togglePackageOutOfStock("medium")}
+                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                            isPackageOutOfStock("medium")
+                              ? "bg-destructive/20 text-destructive"
+                              : "bg-primary/20 text-primary"
+                          }`}
+                        >
+                          {isPackageOutOfStock("medium") ? "Habis" : "Tersedia"}
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-4 gap-2">
+                        {[1, 2, 4, 8, 12, 16].map((ram) => (
+                          <button
+                            key={ram}
+                            onClick={() => toggleStock("medium", ram)}
+                            className={`py-2 rounded-lg text-sm font-medium transition-colors ${
+                              stockSettings.medium[ram]
+                                ? "bg-destructive/20 text-destructive line-through"
+                                : "bg-primary/20 text-primary hover:bg-primary/30"
+                            }`}
+                          >
+                            {ram} GB
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Extreme Package */}
+                    <div className="border border-border rounded-xl p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-semibold text-foreground">Extreme Package</h4>
+                        <button
+                          onClick={() => togglePackageOutOfStock("extreme")}
+                          className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                            isPackageOutOfStock("extreme")
+                              ? "bg-destructive/20 text-destructive"
+                              : "bg-primary/20 text-primary"
+                          }`}
+                        >
+                          {isPackageOutOfStock("extreme") ? "Habis" : "Tersedia"}
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-4 gap-2">
+                        {[1, 2, 4, 8, 12, 16].map((ram) => (
+                          <button
+                            key={ram}
+                            onClick={() => toggleStock("extreme", ram)}
+                            className={`py-2 rounded-lg text-sm font-medium transition-colors ${
+                              stockSettings.extreme[ram]
+                                ? "bg-destructive/20 text-destructive line-through"
+                                : "bg-primary/20 text-primary hover:bg-primary/30"
+                            }`}
+                          >
+                            {ram} GB
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground bg-secondary/50 p-3 rounded-lg">
+                      Klik RAM yang ingin diatur, atau klik status package untuk mengatur seluruh stock paket. Tombol berwarna merah berarti stock habis.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Footer */}
