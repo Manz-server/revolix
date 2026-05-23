@@ -344,18 +344,18 @@ export function SettingsModal({
                           {isPackageOutOfStock("lite") ? "Habis" : "Tersedia"}
                         </button>
                       </div>
-                      <div className="grid grid-cols-4 gap-2">
-                        {[1, 2, 4, 8, 12, 16].map((ram) => (
+                      <div className="grid grid-cols-8 gap-2">
+                        {Array.from({ length: 16 }, (_, i) => i + 1).map((ram) => (
                           <button
                             key={ram}
                             onClick={() => toggleStock("lite", ram)}
-                            className={`py-2 rounded-lg text-sm font-medium transition-colors ${
+                            className={`py-2 px-1 rounded-lg text-xs font-medium transition-colors ${
                               stockSettings.lite[ram]
                                 ? "bg-destructive/20 text-destructive line-through"
                                 : "bg-primary/20 text-primary hover:bg-primary/30"
                             }`}
                           >
-                            {ram} GB
+                            {ram}GB
                           </button>
                         ))}
                       </div>
@@ -376,18 +376,18 @@ export function SettingsModal({
                           {isPackageOutOfStock("medium") ? "Habis" : "Tersedia"}
                         </button>
                       </div>
-                      <div className="grid grid-cols-4 gap-2">
-                        {[1, 2, 4, 8, 12, 16].map((ram) => (
+                      <div className="grid grid-cols-8 gap-2">
+                        {Array.from({ length: 16 }, (_, i) => i + 1).map((ram) => (
                           <button
                             key={ram}
                             onClick={() => toggleStock("medium", ram)}
-                            className={`py-2 rounded-lg text-sm font-medium transition-colors ${
+                            className={`py-2 px-1 rounded-lg text-xs font-medium transition-colors ${
                               stockSettings.medium[ram]
                                 ? "bg-destructive/20 text-destructive line-through"
                                 : "bg-primary/20 text-primary hover:bg-primary/30"
                             }`}
                           >
-                            {ram} GB
+                            {ram}GB
                           </button>
                         ))}
                       </div>
@@ -408,18 +408,18 @@ export function SettingsModal({
                           {isPackageOutOfStock("extreme") ? "Habis" : "Tersedia"}
                         </button>
                       </div>
-                      <div className="grid grid-cols-4 gap-2">
-                        {[1, 2, 4, 8, 12, 16].map((ram) => (
+                      <div className="grid grid-cols-8 gap-2">
+                        {Array.from({ length: 16 }, (_, i) => i + 1).map((ram) => (
                           <button
                             key={ram}
                             onClick={() => toggleStock("extreme", ram)}
-                            className={`py-2 rounded-lg text-sm font-medium transition-colors ${
+                            className={`py-2 px-1 rounded-lg text-xs font-medium transition-colors ${
                               stockSettings.extreme[ram]
                                 ? "bg-destructive/20 text-destructive line-through"
                                 : "bg-primary/20 text-primary hover:bg-primary/30"
                             }`}
                           >
-                            {ram} GB
+                            {ram}GB
                           </button>
                         ))}
                       </div>

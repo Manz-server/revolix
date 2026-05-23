@@ -69,6 +69,7 @@ export function OrderModal({ isOpen, onClose, selectedPackage, qrisImage }: Orde
   const [selectedPeriod, setSelectedPeriod] = useState<"weekly" | "monthly">("weekly")
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [stockSettings, setStockSettings] = useState<any>({})
   
   const [formData, setFormData] = useState({
     gmail: "",
@@ -86,6 +87,12 @@ export function OrderModal({ isOpen, onClose, selectedPackage, qrisImage }: Orde
       setSelectedPayment(null)
       setSelectedPeriod("weekly")
       setFormData({ gmail: "", username: "", password: "" })
+      
+      // Load stock settings
+      const saved = localStorage.getItem("revolix_stock_settings")
+      if (saved) {
+        setStockSettings(JSON.parse(saved))
+      }
     }
   }, [isOpen])
 
@@ -109,9 +116,9 @@ export function OrderModal({ isOpen, onClose, selectedPackage, qrisImage }: Orde
   const getTotalPrice = () => {
     if (!selectedPackage) return 0
     let price = selectedPackage.price * selectedRam
-    // If Lite package and monthly is selected, multiply by 4.33 (average weeks per month)
+    // If Lite package and monthly is selected, multiply by 4 (16.000 per GB per bulan)
     if (selectedPackage.id === "lite" && selectedPeriod === "monthly") {
-      price = Math.round(price * 4.33)
+      price = 16000 * selectedRam
     }
     return price
   }
@@ -274,20 +281,26 @@ Total: Rp ${getTotalPrice().toLocaleString()}`
                   </div>
 
                   {/* Quick Select */}
-                  <div className="grid grid-cols-4 gap-3">
-                    {[1, 2, 4, 8, 12, 16].map((ram) => (
-                      <button
-                        key={ram}
-                        onClick={() => setSelectedRam(ram)}
-                        className={`py-3 rounded-xl font-medium transition-all duration-200 ${
-                          selectedRam === ram
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-secondary hover:bg-secondary/80 text-foreground"
-                        }`}
-                      >
-                        {ram} GB
-                      </button>
-                    ))}
+                  <div className="grid grid-cols-8 gap-2">
+                    {Array.from({ length: 16 }, (_, i) => i + 1).map((ram) => {
+                      const isOutOfStock = stockSettings[selectedPackage.id]?.[ram] === true
+                      return (
+                        <button
+                          key={ram}
+                          onClick={() => !isOutOfStock && setSelectedRam(ram)}
+                          disabled={isOutOfStock}
+                          className={`py-2 px-1 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            isOutOfStock
+                              ? "bg-red-500/20 text-red-500 cursor-not-allowed opacity-50"
+                              : selectedRam === ram
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-secondary hover:bg-secondary/80 text-foreground"
+                          }`}
+                        >
+                          {ram}
+                        </button>
+                      )
+                    })}
                   </div>
 
                   {/* Period Selection for Lite Package */}
