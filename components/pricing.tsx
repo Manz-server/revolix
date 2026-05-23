@@ -23,7 +23,7 @@ const packages: Package[] = [
     id: "lite",
     name: "Lite Package",
     price: 4000,
-    cpu: "AMD Ryzen 9 7950X",
+    cpu: "Intel Xeon E5-2690 v4",
     icon: <Zap className="w-8 h-8" />,
     features: [
       "Anti Down",
