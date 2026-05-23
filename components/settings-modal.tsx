@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Upload, Trash2, Image as ImageIcon, Settings, Lock, Eye, EyeOff } from "lucide-react"
 import Image from "next/image"
@@ -35,12 +35,17 @@ export function SettingsModal({
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [settingsTab, setSettingsTab] = useState<"general" | "stock">("general")
-  const [stockSettings, setStockSettings] = useState<StockSettings>(() => {
-    const saved = localStorage.getItem("revolix_stock_settings")
-    return saved ? JSON.parse(saved) : { lite: {}, medium: {}, extreme: {} }
-  })
+  const [stockSettings, setStockSettings] = useState<StockSettings>({ lite: {}, medium: {}, extreme: {} })
   const logoInputRef = useRef<HTMLInputElement>(null)
   const qrisInputRef = useRef<HTMLInputElement>(null)
+
+  // Load stock settings from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("revolix_stock_settings")
+    if (saved) {
+      setStockSettings(JSON.parse(saved))
+    }
+  }, [])
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
