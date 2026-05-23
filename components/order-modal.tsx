@@ -139,7 +139,7 @@ RAM: ${selectedRam}GB
 Game: ${gameName}
 Egg: ${eggName}
 CPU: ${selectedPackage.cpu}
-Periode: ${selectedPackage.id === "lite" ? (selectedPeriod === "weekly" ? "Mingguan" : "Bulanan") : "-"}
+Periode: ${selectedPackage.id === "lite" ? (selectedPeriod === "weekly" ? "Mingguan (Per Minggu)" : "Bulanan (Per Bulan)") : "-"}
 Payment: ${paymentName}
 Gmail: ${formData.gmail}
 Username: ${formData.username}
